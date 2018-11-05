@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.library">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+
+        </activity>
+
+        <activity android:name="com.library.LoginStudentActivity" />
+        <activity android:name="com.library.LoginOrRegister" />
+        <activity android:name="com.library.Login" />
+        <activity android:name="com.library.Register" />
+        <activity android:name="com.library.Verify" />
+        <activity android:name="com.library.UserHomeActivity" />
+        <activity android:name="com.library.Profile" />
+        <activity android:name="com.library.AdminHomeActivity" />
+        <activity android:name="com.library.UploadFile">
+
+        </activity>
+        <activity android:name="com.library.StudentOrders" />
+        <activity android:name="com.library.Payment" />
+        <activity android:name="com.library.OrderInformation" />
+        <activity android:name="com.library.DocumentFormat" />
+        <activity android:name="com.library.ShoppingCart" />
+        <activity android:name="com.library.OrderStatus" />
+        <activity
+            android:name="com.library.StudentHomePage"
+            android:label="@string/title_activity_student_home_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.library.MySplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.library.Translation" />
+        <activity android:name="com.library.Presentation" />
+        <activity android:name="com.library.ForgetPassword" />
+        <activity android:name="com.library.PrintingFormat" />
+        <activity android:name="com.library.PresentationFormat" />
+        <activity android:name="com.library.AdminOrders" />
+        <activity android:name="com.library.OrderDetails"></activity>
+    </application>
+
+</manifest>
