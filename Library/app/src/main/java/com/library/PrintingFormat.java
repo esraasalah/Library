@@ -11,10 +11,14 @@ import com.library.R;
 
 public class PrintingFormat extends AppCompatActivity {
 
-
+    final String genders[] = { "Fininshing", "No finishing", "Binding", "Stapling" };
     TextView englishLang , arabicLang , a4Paper , a5Paper , blackAndWhite , colord , singleSide , doubleSide , price , quantity  ;
 
+    String paperLanguage , paperType , paperColor , paperSide  , finish ,  paperQuantity , finalPrice  ;
+
     int langPrice =0 , paperPrice =0, colorPrice =0 , sidePrice =0, totalPrice =0, counter = 1;
+
+
 
 
     NumberPicker numberPicker1 ;
@@ -24,7 +28,7 @@ public class PrintingFormat extends AppCompatActivity {
         setContentView(R.layout.activity_printing_format);
 
         numberPicker1= (NumberPicker) findViewById(R.id.numberPicker1);
-        final String genders[] = { "Fininshing", "No finishing", "Binding", "Stapling" };
+
 
         numberPicker1.setMinValue(0);
         numberPicker1.setMaxValue(genders.length - 1);

@@ -28,8 +28,12 @@
         <activity android:name="com.library.Profile" />
         <activity android:name="com.library.AdminHomeActivity" />
         <activity android:name="com.library.UploadFile">
+            
 
         </activity>
+        <activity android:name="com.library.Mail"/>
+        <activity android:name="com.library.SendMail"/>
+        <activity android:name="com.library.Config"/>
         <activity android:name="com.library.StudentOrders" />
         <activity android:name="com.library.Payment" />
         <activity android:name="com.library.OrderInformation" />

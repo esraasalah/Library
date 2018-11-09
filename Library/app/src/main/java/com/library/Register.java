@@ -28,13 +28,18 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends AppCompatActivity {
 
     private  EditText userName , password , resetPassword , email , phoneNumber ;
-    private FirebaseAuth auth;
-    private Button signUp ;
-    private ProgressDialog PD;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    DatabaseReference students = database.getReference("students");
-    DatabaseReference admin= database.getReference("admin");
+    static String code;
+
+//    private FirebaseAuth auth;
+    private Button signUp ;
+
+     static  Student stu ;
+//    private ProgressDialog PD;
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//    DatabaseReference students = database.getReference("students");
+ //   DatabaseReference admin= database.getReference("admin");
 
 
 
@@ -44,12 +49,12 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        PD = new ProgressDialog(this);
-        PD.setMessage("Loading...");
-        PD.setCancelable(true);
-        PD.setCanceledOnTouchOutside(false);
-
-        auth = FirebaseAuth.getInstance();
+//        PD = new ProgressDialog(this);
+//        PD.setMessage("Loading...");
+//        PD.setCancelable(true);
+//        PD.setCanceledOnTouchOutside(false);
+//
+//        auth = FirebaseAuth.getInstance();
 //
 //        if (auth.getCurrentUser() != null) {
 //            startActivity(new Intent(Register.this, MainActivity.class));
@@ -81,86 +86,32 @@ public class Register extends AppCompatActivity {
                     if(passwordText.equals(resetPasswordText))
 
 
+
                         {
-                            PD.show();
-                            auth.createUserWithEmailAndPassword(emailText, passwordText)
-                                    .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (!task.isSuccessful()) {
-                                                Toast.makeText(
-                                                        Register.this,
-                                                        "Authentication Failed",
-                                                        Toast.LENGTH_LONG).show();
-                                                Log.v("error", task.getResult().toString());
-                                            } else {
-
-                                                if (MainActivity.flag == 2) {
-                                                    Student stu = new Student();
-                                                    stu.setUserName(userNameText);
-                                                    stu.setEmail(emailText);
-                                                    stu.setPassword(passwordText);
-                                                    stu.setPhoneNumber(phoneNumberText);
-
-                                                    FirebaseUser curruser = auth.getCurrentUser();
-
-                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                            .setDisplayName(userNameText).build();
-
-                                                    curruser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Log.i("uouoppop", "User profile updated.");
-                                                            }
-                                                        }
-                                                    } );
 
 
-                                                    Toast.makeText(
-                                                            Register.this,
-                                                            "Authentication success",
-                                                            Toast.LENGTH_LONG).show();
-                                                    students.child(userNameText).setValue(stu);
+                            String email = emailText ;
+                            String subject = "verify code";
+                            String message = "123456";
+                            code = message;
+                            SendMail sm = new SendMail(Register.this, email, subject, message);
+                            stu = new Student();
+                            stu.setUserName(userNameText);
+                            stu.setEmail(emailText);
+                            stu.setPassword(passwordText);
+                            stu.setPhoneNumber(phoneNumberText);
 
-                                                    Intent intent = new Intent(Register.this, Login.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                } else if (MainActivity.flag == 1) {
-                                                    Student stu = new Student();
+                            //Creating SendMail object
+                       
 
-                                                    stu.setUserName(userNameText);
-                                                    stu.setEmail(emailText);
-                                                    stu.setPassword(passwordText);
-                                                    stu.setPhoneNumber(phoneNumberText);
-                                                    FirebaseUser curruser = auth.getCurrentUser();
-
-                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                            .setDisplayName(userNameText).build();
-
-                                                    curruser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Log.i("uouoppop", "User profile updated.");
-                                                            }
-                                                        }
-                                                    } );
-                                                    Toast.makeText(
-                                                            Register.this,
-                                                            "Authentication success",
-                                                            Toast.LENGTH_LONG).show();
-                                                    admin.child(userNameText).setValue(stu);
-                                                    Intent intent = new Intent(Register.this, Login.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }
+                            Intent intent = new Intent(Register.this,Verify.class);
+                            startActivity(intent);
 
 
-                                            }
-                                            PD.dismiss();
-                                        }
-                                    });
+                            //Executing sendmail to send email
+                            sm.execute();
+
+
                         }
                         else{
 
@@ -185,13 +136,6 @@ public class Register extends AppCompatActivity {
     }
 
 
-    public void verify(View view)
-    {
-
-        Intent i= new Intent(getApplicationContext(),Verify.class);
-        startActivity(i);
-
-    }
 
 
 }

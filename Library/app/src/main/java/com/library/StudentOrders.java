@@ -60,14 +60,14 @@ public class StudentOrders extends AppCompatActivity {
 
                              objOrder.setColor(ds.child("color").getValue(String.class));
                              objOrder.setUrl(ds.child("url").getValue(String.class));
+                             objOrder.setPrice(ds.child("price").getValue(String.class));
+                             objOrder.setFinishing(ds.child("finishing").getValue(String.class));
+                             objOrder.setNumberOfPages(ds.child("numberOfPages").getValue(String.class));
+                             objOrder.setPaperType(ds.child("paperType").getValue(String.class));
+                             objOrder.setSide(ds.child("side").getValue(String.class));
+
 
                              ordersList.add(objOrder);
-
-
-
-
-
-
 
                     }
 

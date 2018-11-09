@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.esraa.myapplication.com.example.esraa.library.MySplashScreen">
+    tools:context="com.library.MySplashScreen">
 
     <ImageView
         android:id="@+id/imageView3"

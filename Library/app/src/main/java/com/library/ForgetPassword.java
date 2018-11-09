@@ -2,10 +2,12 @@ package com.library;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.library.R;
 public class ForgetPassword extends AppCompatActivity {
 
     EditText email ;
+    Button send ;
     String userEmail ;
 
     @Override
@@ -22,63 +25,7 @@ public class ForgetPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         email = findViewById(R.id.email);
-
-        email.setOnClickListener(new View.OnClickListener() {
-
-
-
-            public void onClick(View v) {
-
-                // TODO Auto-generated method stub
-
-                new Thread(new Runnable() {
-
-                    public void run() {
-
-                        try {
-
-                            GMailSender sender = new GMailSender(
-
-                                    "libraryesy544@gmail.com",
-
-                                    "library&123");
-
-
-
-                          //  sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
-
-                            sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
-
-                                    "libraryesy544@gmail.com",
-
-                                    "esraasalah937@gmail.com");
-
-
-
-
-
-
-
-
-
-                        } catch (Exception e) {
-
-                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-
-
-
-                        }
-
-
-                        Log.i ("senddddddddddd","maillll");
-
-                    }
-
-                }).start();
-
-            }
-
-        });
+        send = findViewById(R.id.send);
 
 
 
