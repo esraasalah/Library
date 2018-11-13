@@ -1,35 +1,36 @@
 package com.library;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.library.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DocumentFormat extends AppCompatActivity {
 
+    static Orders myOrder = new Orders();
+    static int totalPrice = 0;
     final String genders[]={ "No finishing", "Finishing", "Binding", "Stapling" };
+    public int paperPrice = 0, colorPrice = 0, sidePrice = 0, counter = 1, finishingPrice = 0;
+    FirebaseUser user;
+    FirebaseAuth auth;
     TextView  a4Paper , a5Paper , blackAndWhite , colord , singleSide , doubleSide , price , quantity  ;
     String paperType , paperColor , paperSide  , finish ,  paperQuantity , finalPrice  ;
-     public   int  paperPrice =0, colorPrice =0 , sidePrice =0,counter = 1 , finishingPrice = 0;
-     static Orders myOrder = new Orders();
-  static  int  totalPrice =0 ;
     NumberPicker numberPicker1 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document_format);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
-
-        numberPicker1= (NumberPicker) findViewById(R.id.numberPicker1);
+        numberPicker1 = findViewById(R.id.numberPicker1);
 
         numberPicker1.setMinValue(0);
         numberPicker1.setMaxValue(genders.length - 1);
@@ -201,7 +202,7 @@ public class DocumentFormat extends AppCompatActivity {
     public void addToCart(View view)
     {
 
-
+        UserHomeActivity.flag = 1;
 
         finish();
 
@@ -218,6 +219,9 @@ public class DocumentFormat extends AppCompatActivity {
                   myOrder.setNumberOfPages(paperQuantity);
                   myOrder.setPrice(finalPrice);
                   myOrder.setUrl(UploadFile.url);
+                  myOrder.setType("printing");
+                  myOrder.setEmail(user.getEmail());
+
 
 
                   Intent i = new Intent(getApplicationContext(), OrderInformation.class);

@@ -7,11 +7,50 @@ package com.library;
 public class Orders {
 
 
+    private String studentName;
+    private String language;
+    private String paperType;
+    private String color;
+    private String finishing;
+    private String numberOfPages;
+    private String side;
+    private String price;
+    private String url;
+    private String note;
+    private String type;
+    private String email;
 
-    private String studentName , language , paperType , color , finishing , numberOfPages , side , price ,url;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getStudentName() {
         return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getNote() {
+
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getUrl() {
@@ -20,10 +59,6 @@ public class Orders {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
     }
 
     public String getPrice() {

@@ -1,8 +1,9 @@
 package com.library;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,15 +13,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.library.R;
+
 
 public class Payment extends AppCompatActivity {
 
 
-    private FirebaseAuth auth;
     FirebaseUser user ;
     DatabaseReference ref;
     String userNameT="";
+    private FirebaseAuth auth;
+
+    //    Map map = new HashMap();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,9 @@ public class Payment extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user =auth.getCurrentUser();
 
+
+//        map.put("timestamp", ServerValue.TIMESTAMP);
+
         ref= FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {
                                       @Override
@@ -37,7 +43,6 @@ public class Payment extends AppCompatActivity {
 
                                           userNameT = dataSnapshot.child("students").child(user.getDisplayName()).child("userName").getValue(String.class);
                                           DocumentFormat.myOrder.setStudentName(userNameT);
-
 
 
                                       }
@@ -55,8 +60,22 @@ public class Payment extends AppCompatActivity {
     public void getOrderStatus (View view)
     {
 
+        if (UserHomeActivity.flag == 1) {
+            ref.child("students").child("printingOrders").push().setValue(DocumentFormat.myOrder);
+            ref.child("students").child(user.getDisplayName()).child("orders").push().setValue(DocumentFormat.myOrder);
+            // ref.child("students").child(user.getDisplayName()).child("orders").updateChildren(map);
+            Log.i("flagggggg", String.valueOf(UserHomeActivity.flag));
+        } else if (UserHomeActivity.flag == 2) {
+            ref.child("students").child("presentationOrders").push().setValue(PresentationFormat.myOrder);
+            ref.child("students").child(user.getDisplayName()).child("orders").push().setValue(PresentationFormat.myOrder);
+            Log.i("flagggggg", String.valueOf(UserHomeActivity.flag));
 
-        ref.child("students").child(user.getDisplayName()).child("orders").push().setValue(DocumentFormat.myOrder);
+        } else if (UserHomeActivity.flag == 3) {
+            ref.child("students").child("translationOrders").push().setValue(TranslationFormat.myOrder);
+            ref.child("students").child(user.getDisplayName()).child("orders").push().setValue(TranslationFormat.myOrder);
+            Log.i("flagggggg", String.valueOf(UserHomeActivity.flag));
+
+        }
 
         Intent i = new Intent(getApplicationContext() , OrderStatus.class);
         startActivity(i);

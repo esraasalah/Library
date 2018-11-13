@@ -1,7 +1,7 @@
 package com.library;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,16 +13,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.library.R;
 
 public class Profile extends AppCompatActivity {
 
 
 
-    private FirebaseAuth auth;
     FirebaseUser user ;
     DatabaseReference ref;
    EditText name , email , phone ;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +98,16 @@ public class Profile extends AppCompatActivity {
     public void save (View view)
     {
 
-        ref.child("students").child(user.getDisplayName()).child("userName").setValue(name.getText().toString());
-        ref.child("students").child(user.getDisplayName()).child("email").setValue(email.getText().toString());
-        ref.child("students").child(user.getDisplayName()).child("phoneNumber").setValue(phone.getText().toString());
+        if (!email.getText().toString().contains("pnu.edu.sa")) {
+            Toast.makeText(this, "Enter a valid university email", Toast.LENGTH_LONG).show();
+        } else {
+            ref.child("students").child(user.getDisplayName()).child("userName").setValue(name.getText().toString());
+            // ref.child("students").child(user.getDisplayName()).child("email").setValue(email.getText().toString());
+            ref.child("students").child(user.getDisplayName()).child("phoneNumber").setValue(phone.getText().toString());
+            user.updateEmail(email.getText().toString());
 
-        Toast.makeText(this,"data updating successfuly",Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this, "data updating successfuly", Toast.LENGTH_LONG).show();
+        }
 
     }
 }

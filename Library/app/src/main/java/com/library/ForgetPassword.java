@@ -1,23 +1,24 @@
 package com.library;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.library.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPassword extends AppCompatActivity {
 
     EditText email ;
     Button send ;
     String userEmail ;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,43 +29,31 @@ public class ForgetPassword extends AppCompatActivity {
         send = findViewById(R.id.send);
 
 
-
-
     }
 
 
+    public void sendMail(View view) {
+        String emailText = email.getText().toString();
+
+        if (email.length() <= 0) {
+            Toast.makeText(ForgetPassword.this, "enter your university email", Toast.LENGTH_LONG).show();
+        } else {
 
 
-//    public void sendMail(View view)
-//    {
-//
-//        userEmail  = email.getText().toString();
-//
-//        if (userEmail != null) {
-//            try {
-//
-//                Intent sendEmail = new Intent(Intent.ACTION_SEND);
-//
-//                sendEmail.setData(Uri.parse("mailto:"));
-//                sendEmail.setType("message/rfc822");
-//                sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{userEmail});
-//                sendEmail.putExtra(Intent.EXTRA_TEXT, "123456");
-//
-//                startActivity(sendEmail);
-//            } catch (Exception e) {
-//
-//                Toast.makeText(this, "please try again", Toast.LENGTH_LONG);
-//
-//            }
-//
-//        }
-//        else
-//        {
-//
-//            Toast.makeText(this, "please Enter your mail", Toast.LENGTH_LONG);
-//
-//        }
-//
-//    }
+            auth.sendPasswordResetEmail(emailText)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.i("success", "Email sent.");
+                                Toast.makeText(ForgetPassword.this, "Email Sent", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+        }
+
+
+    }
 
 }
