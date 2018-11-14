@@ -3,6 +3,7 @@ package com.library;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +55,13 @@ public class CustomAdapter extends ArrayAdapter {
 
         TextView email = row.findViewById(R.id.email);
         TextView url = row.findViewById(R.id.url);
-        Orders order = adapterOrders[position];
+//        Orders order = adapterOrders[position];
+        Log.i("position", String.valueOf(position));
+        if (adapterOrders.length > 0) {
 
-        email.setText(order.getEmail());
-        url.setText(order.getUrl());
+            url.setText(adapterOrders[position].getUrl());
+            email.setText(adapterOrders[position].getEmail());
+        }
 
         return row;
     }
